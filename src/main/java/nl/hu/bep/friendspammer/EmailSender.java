@@ -15,19 +15,11 @@ public class EmailSender {
 	public static void sendEmail(String subject, String to, String messageBody, boolean asHtml) {
 
 		Properties props = new Properties();
-		props.put("mail.smtp.host", "smtp.mailtrap.io");
-		props.put("mail.smtp.port", "2525");
-		props.put("mail.smtp.auth", "true");
+		props.put("mail.smtp.host", "mailhog");
+		props.put("mail.smtp.port", "1025");
+		props.put("mail.smtp.auth", "false");
 
-		String username = "YOUR MAIL USERNAME";
-		String password = "YOUR MAIL PASSWORD";
-
-		Session session = Session.getInstance(props,
-				  new javax.mail.Authenticator() {
-					protected PasswordAuthentication getPasswordAuthentication() {
-						return new PasswordAuthentication(username, password);
-					}
-				  });
+		Session session = Session.getInstance(props);
 		try {
 
 			Message message = new MimeMessage(session);
@@ -41,7 +33,7 @@ public class EmailSender {
 			} else {
 				message.setText(messageBody);	
 			}
-//			Transport.send(message);
+			Transport.send(message);
 
 			MongoSaver.saveEmail(to, "spammer@spamer.com", subject, messageBody, asHtml);
 
@@ -53,19 +45,11 @@ public class EmailSender {
 	public static void sendEmail(String subject, String[] toList, String messageBody, boolean asHtml) {
 
 		Properties props = new Properties();
-		props.put("mail.smtp.host", "smtp.mailtrap.io");
-		props.put("mail.smtp.port", "2525");
-		props.put("mail.smtp.auth", "true");
+		props.put("mail.smtp.host", "mailhog");
+		props.put("mail.smtp.port", "1025");
+		props.put("mail.smtp.auth", "false");
 		
-		String username = "YOUR MAIL USERNAME";
-		String password = "YOUR MAIL PASSWORD";
-
-		Session session = Session.getInstance(props,
-				  new javax.mail.Authenticator() {
-					protected PasswordAuthentication getPasswordAuthentication() {
-						return new PasswordAuthentication(username, password);
-					}
-				  });
+		Session session = Session.getInstance(props);
 		try {
 
 			for (int index = 0; index < toList.length; index++) {
