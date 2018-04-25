@@ -1,4 +1,4 @@
-package nl.hu.bep;
+package nl.hu.bep.friendspammer;
 
 import java.net.UnknownHostException;
 import java.util.Arrays;
