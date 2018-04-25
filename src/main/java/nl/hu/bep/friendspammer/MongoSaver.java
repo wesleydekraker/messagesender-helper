@@ -20,15 +20,11 @@ import com.mongodb.client.MongoDatabase;
 public class MongoSaver {
 	
 	public static boolean saveEmail(String to, String from, String subject, String text, Boolean html) {
-		String userName = "YOUR NAME";
-		String password = "YOUR PASS";
-		String database = "YOUR DB";
-		
-		MongoCredential credential = MongoCredential.createCredential(userName, database, password.toCharArray());
+		String database = "friendspammer";
 		
 		boolean success = true;
 		
-		try (MongoClient mongoClient = new MongoClient(new ServerAddress("YOUR HOST", 27939), credential, MongoClientOptions.builder().build()) ) {
+		try (MongoClient mongoClient = new MongoClient("mongo") ) {
 			
 			MongoDatabase db = mongoClient.getDatabase( database );
 			
