@@ -41,7 +41,7 @@ public class EmailSender {
 			} else {
 				message.setText(messageBody);	
 			}
-			Transport.send(message);
+//			Transport.send(message);
 
 			MongoSaver.saveEmail(to, "spammer@spamer.com", subject, messageBody, asHtml);
 
