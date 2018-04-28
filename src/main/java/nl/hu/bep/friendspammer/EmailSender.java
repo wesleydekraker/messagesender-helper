@@ -13,38 +13,37 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class EmailSender {
-	static final Logger logger = LoggerFactory.getLogger(EmailSender.class);
-	
-	private EmailSender() { }
-	
-	public static void sendEmail(String subject, String to, String messageBody, boolean asHtml) throws MessagingException {
+    static final Logger logger = LoggerFactory.getLogger(EmailSender.class);
+
+    private EmailSender() { }
+
+    public static void sendEmail(Email email) throws MessagingException {
+        email.setFrom("spammer@spammer.com");
+
         Session session = getMailSession();
 
-		Message message = new MimeMessage(session);
-		message.setFrom(new InternetAddress("spammer@spammer.com"));
-		message.setRecipients(Message.RecipientType.TO,
-			InternetAddress.parse(to));
-		message.setSubject(subject);
-		
-		if (asHtml) {
-				message.setContent(messageBody, "text/html; charset=utf-8");
-		} else {
-			message.setText(messageBody);	
-		}
-		Transport.send(message);
-		
-		logger.info("Message send!");
+        Message message = new MimeMessage(session);
+        message.setFrom(new InternetAddress(email.getFrom()));
 
-		MongoSaver.saveEmail(to, "spammer@spamer.com", subject, messageBody, asHtml);
-	}
+        for (String to : email.getTo()) {
+            message.addRecipients(Message.RecipientType.TO, InternetAddress.parse(to));
+        }
 
-	public static void sendEmail(String subject, String[] toList, String messageBody, boolean asHtml) throws MessagingException {
-		for (int index = 0; index < toList.length; index++) {
-		    sendEmail(subject, toList[index], messageBody, asHtml);
-		}
+        message.setSubject(email.getSubject());
 
-	}
-	
+        if (email.isAsHtml()) {
+            message.setContent(email.getMessageBody(), "text/html; charset=utf-8");
+        } else {
+            message.setText(email.getMessageBody());
+        }
+
+        Transport.send(message);
+
+        logger.info("Message send!");
+
+        MongoSaver.saveEmail(email);
+    }
+
     private static Session getMailSession() {
         Properties props = new Properties();
         props.put("mail.smtp.host", "mailhog");
@@ -53,6 +52,6 @@ public class EmailSender {
 
         Session session = Session.getInstance(props);
         return session;
-	}
-	
+    }
+
 }

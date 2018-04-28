@@ -1,17 +1,20 @@
 package nl.hu.bep.friendspammer;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class Email {
-    private String to;
+    private List<String> to;
     private String from;
     private String subject;
     private String messageBody;
     private boolean asHtml;
     
-    public String getTo() {
+    public List<String> getTo() {
         return to;
     }
     
-    public void setTo(String to) {
+    public void setTo(List<String> to) {
         this.to = to;
     }
     
@@ -45,5 +48,14 @@ public class Email {
     
     public void setAsHtml(boolean asHtml) {
         this.asHtml = asHtml;
+    }
+    
+    public static List<String> splitTo(String to) {
+        if(to.contains(",")) {
+            String[] toList = to.split(",");
+            return Arrays.asList(toList);
+        }
+        
+        return Arrays.asList(to);
     }
 }
