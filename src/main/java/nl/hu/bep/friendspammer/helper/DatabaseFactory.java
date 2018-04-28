@@ -1,4 +1,4 @@
-package nl.hu.bep.friendspammer;
+package nl.hu.bep.friendspammer.helper;
 
 import static org.bson.codecs.configuration.CodecRegistries.fromProviders;
 import static org.bson.codecs.configuration.CodecRegistries.fromRegistries;

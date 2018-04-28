@@ -1,4 +1,4 @@
-package nl.hu.bep.friendspammer;
+package nl.hu.bep.friendspammer.helper;
 
 import java.util.ArrayList;
 import java.util.Iterator;
