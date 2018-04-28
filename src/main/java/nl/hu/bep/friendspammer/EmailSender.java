@@ -9,69 +9,50 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class EmailSender {
+	static final Logger logger = LoggerFactory.getLogger(EmailSender.class);
 	
-	public static void sendEmail(String subject, String to, String messageBody, boolean asHtml) {
+	private EmailSender() { }
+	
+	public static void sendEmail(String subject, String to, String messageBody, boolean asHtml) throws MessagingException {
+        Session session = getMailSession();
 
-		Properties props = new Properties();
-		props.put("mail.smtp.host", "mailhog");
-		props.put("mail.smtp.port", "1025");
-		props.put("mail.smtp.auth", "false");
-
-		Session session = Session.getInstance(props);
-		try {
-
-			Message message = new MimeMessage(session);
-			message.setFrom(new InternetAddress("spammer@spammer.com"));
-			message.setRecipients(Message.RecipientType.TO,
-				InternetAddress.parse(to));
-			message.setSubject(subject);
-			
-			if (asHtml) {
-					message.setContent(messageBody, "text/html; charset=utf-8");
-			} else {
-				message.setText(messageBody);	
-			}
-			Transport.send(message);
-
-			MongoSaver.saveEmail(to, "spammer@spamer.com", subject, messageBody, asHtml);
-
-		} catch (MessagingException e) {
-			throw new RuntimeException(e);
+		Message message = new MimeMessage(session);
+		message.setFrom(new InternetAddress("spammer@spammer.com"));
+		message.setRecipients(Message.RecipientType.TO,
+			InternetAddress.parse(to));
+		message.setSubject(subject);
+		
+		if (asHtml) {
+				message.setContent(messageBody, "text/html; charset=utf-8");
+		} else {
+			message.setText(messageBody);	
 		}
+		Transport.send(message);
+		
+		logger.info("Message send!");
+
+		MongoSaver.saveEmail(to, "spammer@spamer.com", subject, messageBody, asHtml);
 	}
 
-	public static void sendEmail(String subject, String[] toList, String messageBody, boolean asHtml) {
-
-		Properties props = new Properties();
-		props.put("mail.smtp.host", "mailhog");
-		props.put("mail.smtp.port", "1025");
-		props.put("mail.smtp.auth", "false");
-		
-		Session session = Session.getInstance(props);
-		try {
-
-			for (int index = 0; index < toList.length; index++) {
-			
-				Message message = new MimeMessage(session);
-				message.setFrom(new InternetAddress("spammer@spammer.com"));
-				message.setRecipients(Message.RecipientType.TO,
-					InternetAddress.parse(toList[index]));
-				message.setSubject(subject);
-				
-				if (asHtml) {
-						message.setContent(messageBody, "text/html; charset=utf-8");
-				} else {
-					message.setText(messageBody);	
-				}
-				Transport.send(message);
-	
-				System.out.println("Done");
-			}
-
-		} catch (MessagingException e) {
-			throw new RuntimeException(e);
+	public static void sendEmail(String subject, String[] toList, String messageBody, boolean asHtml) throws MessagingException {
+		for (int index = 0; index < toList.length; index++) {
+		    sendEmail(subject, toList[index], messageBody, asHtml);
 		}
+
+	}
+	
+    private static Session getMailSession() {
+        Properties props = new Properties();
+        props.put("mail.smtp.host", "mailhog");
+        props.put("mail.smtp.port", "1025");
+        props.put("mail.smtp.auth", "false");
+
+        Session session = Session.getInstance(props);
+        return session;
 	}
 	
 }
