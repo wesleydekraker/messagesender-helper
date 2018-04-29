@@ -41,7 +41,8 @@ public class EmailSender {
 
         logger.info("Message send!");
 
-        MongoSaver.saveEmail(email);
+        MongoRepository mongoSaver = new MongoRepository();
+        mongoSaver.saveEmail(email);
     }
 
     private static Session getMailSession() {

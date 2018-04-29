@@ -10,13 +10,11 @@ import org.slf4j.LoggerFactory;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 
-public class MongoSaver {
-    private static final Logger logger = LoggerFactory.getLogger(MongoSaver.class);
-    private static final DatabaseFactory databaseFactory = new DatabaseFactory();
-
-    private MongoSaver() { }
-
-    public static void saveEmail(Email email) {
+public class MongoRepository {
+    private static final Logger logger = LoggerFactory.getLogger(MongoRepository.class);
+    private static DatabaseFactory databaseFactory = new DatabaseFactoryImpl();
+    
+    public void saveEmail(Email email) {
         MongoDatabase database = databaseFactory.getDatabase();
         
         MongoCollection<Email> collection = database.getCollection("email", Email.class);
@@ -24,7 +22,7 @@ public class MongoSaver {
         collection.insertOne(email);
     }
 
-    public static List<Email> getEmails() {
+    public List<Email> getEmails() {
         MongoDatabase database = databaseFactory.getDatabase();
         
         MongoCollection<Email> collection = database.getCollection("email", Email.class);
@@ -37,5 +35,9 @@ public class MongoSaver {
         }
         
         return emails;
+    }
+    
+    public static void setDatabaseFactory(DatabaseFactory databaseFactory) {
+        MongoRepository.databaseFactory = databaseFactory;
     }
 }
