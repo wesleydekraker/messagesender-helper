@@ -51,8 +51,7 @@ public class EmailSender {
         props.put("mail.smtp.port", "1025");
         props.put("mail.smtp.auth", "false");
 
-        Session session = Session.getInstance(props);
-        return session;
+        return Session.getInstance(props);
     }
 
 }

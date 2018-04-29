@@ -13,10 +13,6 @@ import com.mongodb.client.MongoDatabase;
 public class DatabaseFactoryImpl implements DatabaseFactory {
     private MongoDatabase database;
     
-    public DatabaseFactoryImpl() {
-
-    }
-    
     public MongoDatabase getDatabase() {
         if (database == null) {
             synchronized (DatabaseFactoryImpl.class) {
