@@ -3,6 +3,9 @@ package nl.hu.bep.friendspammer.helper;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
+
 public class Email {
     private List<String> to;
     private String from;
@@ -58,4 +61,14 @@ public class Email {
         
         return Arrays.asList(to);
     }
+    
+    public static boolean isValidEmailAddress(String email) {
+        boolean isValidEmail = true;
+        try {
+           new InternetAddress(email, true);
+        } catch (AddressException addressException) {
+           isValidEmail = false;
+        }
+        return isValidEmail;
+     }
 }
