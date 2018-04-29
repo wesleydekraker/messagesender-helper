@@ -5,7 +5,6 @@
 	<groupId>nl.hu.bep</groupId>
 	<artifactId>friendspammer-helper</artifactId>
 	<version>1.2</version>
-	<packaging>jar</packaging>
 	<properties>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
