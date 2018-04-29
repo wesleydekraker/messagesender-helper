@@ -54,10 +54,6 @@ public class MongoRepositoryTest {
         
         MongoRepository.setDatabaseFactory(databaseFactory);
         
-        MongoRepository mongoRepository = new MongoRepository();
-        mongoRepository.saveEmail(mock(Email.class));
-        verify(mongoCollection).insertOne(any(Email.class));
-        
         return mongoCollection;
     }
 }
