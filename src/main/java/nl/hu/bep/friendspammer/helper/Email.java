@@ -53,7 +53,7 @@ public class Email {
         this.asHtml = asHtml;
     }
     
-    public static List<String> splitTo(String to) {
+    public static List<String> splitAddresses(String to) {
         if(to.contains(",")) {
             String[] toList = to.split(",");
             return Arrays.asList(toList);
