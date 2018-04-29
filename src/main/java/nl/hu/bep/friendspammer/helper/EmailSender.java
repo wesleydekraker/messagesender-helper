@@ -9,15 +9,8 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 public class EmailSender {
-    static final Logger logger = LoggerFactory.getLogger(EmailSender.class);
-
-    private EmailSender() { }
-
-    public static void sendEmail(Email email) throws MessagingException {
+    public void sendEmail(Email email) throws MessagingException {
         email.setFrom("spammer@spammer.com");
 
         Session session = getMailSession();
@@ -39,13 +32,11 @@ public class EmailSender {
 
         Transport.send(message);
 
-        logger.info("Message send!");
-
         MongoRepository mongoSaver = new MongoRepository();
         mongoSaver.saveEmail(email);
     }
 
-    private static Session getMailSession() {
+    private Session getMailSession() {
         Properties props = new Properties();
         props.put("mail.smtp.host", "mailhog");
         props.put("mail.smtp.port", "1025");
