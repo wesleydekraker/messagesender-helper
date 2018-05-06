@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>nl.hu.bep</groupId>
-	<artifactId>friendspammer-helper</artifactId>
+	<artifactId>messagesender-helper</artifactId>
 	<version>1.2</version>
 	<properties>
 		<maven.compiler.source>1.8</maven.compiler.source>
@@ -56,11 +56,11 @@
 	<distributionManagement>
 		<repository>
 			<id>packagecloud-wesleydekraker</id>
-			<url>packagecloud+https://packagecloud.io/wesleydekraker/friendspammer</url>
+			<url>packagecloud+https://packagecloud.io/wesleydekraker/messagesender</url>
 		</repository>
 		<snapshotRepository>
 			<id>packagecloud-wesleydekraker</id>
-			<url>packagecloud+https://packagecloud.io/wesleydekraker/friendspammer</url>
+			<url>packagecloud+https://packagecloud.io/wesleydekraker/messagesender</url>
 		</snapshotRepository>
 	</distributionManagement>
 </project>
