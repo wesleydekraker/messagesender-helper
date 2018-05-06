@@ -1,4 +1,4 @@
-package nl.hu.bep.friendspammer.helper;
+package nl.hu.bep.messagesender.helper;
 
 import static org.bson.codecs.configuration.CodecRegistries.fromProviders;
 import static org.bson.codecs.configuration.CodecRegistries.fromRegistries;
@@ -33,6 +33,6 @@ public class DatabaseFactoryImpl implements DatabaseFactory {
         MongoClient mongoClient = new MongoClient("mongo",
                 MongoClientOptions.builder().codecRegistry(pojoCodecRegistry).build());
         
-        database = mongoClient.getDatabase("friendspammer");
+        database = mongoClient.getDatabase("messagesender");
     }
 }

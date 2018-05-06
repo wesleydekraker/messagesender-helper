@@ -1,4 +1,4 @@
-package nl.hu.bep.friendspammer.helper;
+package nl.hu.bep.messagesender.helper;
 
 import java.util.List;
 
@@ -12,7 +12,9 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
 
-import nl.hu.bep.friendspammer.helper.Email;
+import nl.hu.bep.messagesender.helper.DatabaseFactory;
+import nl.hu.bep.messagesender.helper.Email;
+import nl.hu.bep.messagesender.helper.MongoRepository;
 
 public class MongoRepositoryTest {
     @SuppressWarnings("unchecked")

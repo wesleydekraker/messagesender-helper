@@ -1,4 +1,4 @@
-package nl.hu.bep.friendspammer.helper;
+package nl.hu.bep.messagesender.helper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,7 +6,7 @@ import java.util.List;
 import org.junit.Assert;
 import org.junit.Test;
 
-import nl.hu.bep.friendspammer.helper.Email;
+import nl.hu.bep.messagesender.helper.Email;
 
 public class EmailTest {
     @Test
